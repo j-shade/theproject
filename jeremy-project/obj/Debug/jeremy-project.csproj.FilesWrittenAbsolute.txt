@@ -1,0 +1,8 @@
+/Users/jeremy/jeremy-project/jeremy-project/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/Users/jeremy/jeremy-project/jeremy-project/bin/Debug/jeremy-project.exe.config
+/Users/jeremy/jeremy-project/jeremy-project/bin/Debug/jeremy-project.exe.mdb
+/Users/jeremy/jeremy-project/jeremy-project/bin/Debug/jeremy-project.exe
+/Users/jeremy/jeremy-project/jeremy-project/obj/Debug/jeremy-project.exe
+/Users/jeremy/jeremy-project/jeremy-project/obj/Debug/jeremy-project.exe.mdb
+/Users/jeremy/jeremy-project/jeremy-project/bin/Debug/Excel.dll
+/Users/jeremy/jeremy-project/jeremy-project/bin/Debug/ICSharpCode.SharpZipLib.dll
