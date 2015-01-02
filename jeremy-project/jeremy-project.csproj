@@ -51,12 +51,12 @@
     <Compile Include="Print.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ShiftBLL.cs" />
-    <Compile Include="ShiftDAL.cs" />
-    <Compile Include="ShiftObject.cs" />
-    <Compile Include="UserBLL.cs" />
-    <Compile Include="UserDAL.cs" />
-    <Compile Include="UserObject.cs" />
+    <Compile Include="Shift\ShiftBLL.cs" />
+    <Compile Include="Shift\ShiftDAL.cs" />
+    <Compile Include="Shift\ShiftObject.cs" />
+    <Compile Include="User\UserBLL.cs" />
+    <Compile Include="User\UserDAL.cs" />
+    <Compile Include="User\UserObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

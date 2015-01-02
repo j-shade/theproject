@@ -12,8 +12,9 @@ namespace jeremy_project
 {
     class ShiftDAL
     {
-        public static Shift GetShiftObjectForUser(string user, string filePath)
+        public static List<Shift> GetShiftObjectsForUser(string user, string filePath)
         {
+            List<Shift> shifts = new List<Shift>();
             Shift shift = new Shift();
             
             // path to excel, read in all the users to a user object
@@ -33,12 +34,13 @@ namespace jeremy_project
                     shift.Day6 = excelReader.GetString(6);
                     shift.Day7 = excelReader.GetString(7);
                     shift.ShiftTotal = excelReader.GetString(8);
+                    shifts.Add(shift);
                 }
             }
             excelReader.Close();
 
             // return shift object based on username
-            return shift;
+            return shifts;
         }
     }
 }

@@ -15,7 +15,7 @@ namespace jeremy_project
             string userName = String.Empty;
 
             // constants
-            const string folderPath = "/Users/jeremy/jeremy-project/jeremy-project/sheet.xlsx";            
+            const string folderPath = @"E:\Dev\Projects\theproject\jeremy-project\sheet.xlsx";            
 
             // could do this better, like you have is fine
             Console.WriteLine("Who are you looking for? ");
@@ -34,7 +34,7 @@ namespace jeremy_project
                     if (user.EmployeeName == userName)
                     {
                         // print shifttimes, but first get shift objects based on username
-                        Print.PrintShiftTimes(ShiftBLL.GetShiftObject(userName, folderPath));   
+                        Print.PrintShiftTimes(ShiftBLL.GetShiftObjects(userName, folderPath));   
                     }                    
                 }
             }
