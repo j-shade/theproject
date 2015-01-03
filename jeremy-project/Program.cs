@@ -13,13 +13,13 @@ namespace jeremy_project
         {
             // vars
             string userName = String.Empty;
+			int scrPrt = 0;
 
             // constants
-            const string folderPath = @"E:\Dev\Projects\theproject\jeremy-project\sheet.xlsx";            
+            const string folderPath = "/Users/jeremy/jeremy-project/jeremy-project/sheet.xlsx";            
 
             // could do this better, like you have is fine
-            Console.WriteLine("Who are you looking for? ");
-            userName = Console.ReadLine();
+			userName = NameBLL.GetUserName ();
 
             try
             {
@@ -31,10 +31,11 @@ namespace jeremy_project
                 foreach (User user in users)
                 {
                     // if one matches happy days
-                    if (user.EmployeeName == userName)
+					if (user.EmployeeName == userName && scrPrt < 1)
                     {
                         // print shifttimes, but first get shift objects based on username
-                        Print.PrintShiftTimes(ShiftBLL.GetShiftObjects(userName, folderPath));   
+                        Print.PrintShiftTimes(ShiftBLL.GetShiftObjects(userName, folderPath)); 
+						scrPrt =+ 1;
                     }                    
                 }
             }
