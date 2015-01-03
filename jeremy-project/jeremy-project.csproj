@@ -57,6 +57,8 @@
     <Compile Include="User\UserBLL.cs" />
     <Compile Include="User\UserDAL.cs" />
     <Compile Include="User\UserObject.cs" />
+    <Compile Include="Name\NameBLL.cs" />
+    <Compile Include="Name\NameDAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

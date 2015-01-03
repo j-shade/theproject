@@ -1,12 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace jeremy_project
 {
-	public class NameBLL
+	class NameBLL
 	{
-		public NameBLL ()
+		public static string GetUserName()
 		{
+			return NameDAL.WhatIsTheName();
 		}
 	}
 }
-

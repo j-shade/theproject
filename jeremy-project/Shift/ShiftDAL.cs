@@ -15,7 +15,6 @@ namespace jeremy_project
         public static List<Shift> GetShiftObjectsForUser(string user, string filePath)
         {
             List<Shift> shifts = new List<Shift>();
-            Shift shift = new Shift();
             
             // path to excel, read in all the users to a user object
             FileStream stream = File.Open(filePath, FileMode.Open, FileAccess.Read);
@@ -26,6 +25,7 @@ namespace jeremy_project
             {
                 if (excelReader.GetString(0) == user)
                 {
+					Shift shift = new Shift();
                     shift.Day1 = excelReader.GetString(1);
                     shift.Day2 = excelReader.GetString(2);
                     shift.Day3 = excelReader.GetString(3);
