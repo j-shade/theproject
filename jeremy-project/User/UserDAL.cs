@@ -29,9 +29,10 @@ namespace jeremy_project
 					name = String.Empty;
 				}
                 // really shitty validation - definitley fix this up
-				if ((name.Length > 5) && (name.Length < 20))
+				if ((name.Length > 5) && (name.Length < 20) && (name.Contains("0") != true))
                 {
                     // add users to list
+					Console.WriteLine(name);
                     users.Add(new User { EmployeeName = excelReader.GetString(0) });
                 }
             }

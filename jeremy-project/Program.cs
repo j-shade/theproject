@@ -33,6 +33,7 @@ namespace jeremy_project
                     // if one matches happy days
 					if (user.EmployeeName == userName && scrPrt < 1)
                     {
+						//ShiftBLL.GetShiftObjects(userName, folderPath);
                         // print shifttimes, but first get shift objects based on username
                         Print.PrintShiftTimes(ShiftBLL.GetShiftObjects(userName, folderPath)); 
 						scrPrt =+ 1;
