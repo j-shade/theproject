@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace jeremy_project
 {
-	class ShiftTextBLL
+	class ShiftSplitterBLL
 	{
-		public static string GetShiftType(string word)
+		public static void SplitTheShifts(List<Shift> shiftList)
 		{
-			return ShiftTextDAL.GetShiftType(word);
+			ShiftSplitterDAL.OneShiftAtATime(shiftList);
 		}
 	}
 }

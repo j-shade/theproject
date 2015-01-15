@@ -64,7 +64,7 @@ namespace jeremy_project
 							Day4.shiftText = excelReader.GetString(4);
 							Day5.shiftText = excelReader.GetString(5);
 							Day6.shiftText = excelReader.GetString(6);
-							Day7.shiftText = excelReader.GetString (7);
+							Day7.shiftText = excelReader.GetString(7);
 							isFound = true;
 						}
 					}

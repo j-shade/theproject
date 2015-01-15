@@ -59,6 +59,9 @@
     <Compile Include="User\UserObject.cs" />
     <Compile Include="Name\NameBLL.cs" />
     <Compile Include="Name\NameDAL.cs" />
+    <Compile Include="ShiftSplitter\ShiftTextSplitter.cs" />
+    <Compile Include="ShiftSplitter\ShiftSplitterBLL.cs" />
+    <Compile Include="ShiftSplitter\ShiftSplitterDAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

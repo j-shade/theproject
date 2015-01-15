@@ -8,18 +8,26 @@ using System.IO;
 
 namespace jeremy_project
 {
-	class SplitTheShift
+	class ShiftTextSplitter
 	{
 		public static void breakShiftDown(string value)
 		{
-			int count = 1;
-			string[] separators = { "-", "(", ")", " ", "/", "Extra"};
-			string[] words = value.Split (separators,StringSplitOptions.RemoveEmptyEntries);
-			foreach (var word in words) {
-				findShiftTimes(word, count);
-				//				Console.WriteLine (word);
-				//				Console.WriteLine (count);
-				count += 1;
+			//check to see if there are more than one shift and split it by the pattern
+			string pattern = "/";
+			string[] multiShifts = Regex.Split(value, pattern);
+			//begin the shift count
+			int shiftCount = 1;
+			foreach (string shift in multiShifts) {
+				int wordCount = 1;
+				Console.WriteLine("\n Shift {0} : \n", shiftCount);
+				shiftCount += 1;
+				string[] separators = { "-", "(", ")", " ", "Extra" };
+				string[] words = shift.Split (separators, StringSplitOptions.RemoveEmptyEntries);
+				//for each shift it finds, break it down
+				foreach (var word in words) {
+					findShiftTimes(word, wordCount);
+					wordCount += 1;
+				}
 			}
 		}
 
@@ -27,67 +35,45 @@ namespace jeremy_project
 		{
 			DateTime day = new DateTime ();
 			double dec = 0.00;
-			decimal tempDec;
-			string shiftTime = "";
+			string shiftTime = word;
+			//make sure the word doesnt contain any shift type identifiers
 			if (Regex.IsMatch (word, @"[GTSF]") != true) {
 				int stringLength = word.Length;
 				if (stringLength > 0) {
-					shiftTime = word.Substring (0, stringLength - 2);
-					if (shiftTime.Length < 3)
+					//if the string has am/pm, remove it
+					if (Regex.IsMatch(word, @"[apm]")){
+						shiftTime = word.Substring (0, stringLength - 2);
+					}
+					//if the shiftTime is only 1 or 2 strings (11am, 3pm etc), append :00 for DateTime conventions
+					if (shiftTime.Length < 3) {
 						shiftTime += ":00";
+					}
+					//fix roster formatting where a . is used instead of a :
 					if (shiftTime.Contains ("."))
 						shiftTime = shiftTime.Replace (".", ":");
-					tempDec = Convert.ToDecimal (TimeSpan.Parse (shiftTime).TotalHours);
-					dec = Convert.ToDouble (tempDec);
+					//Convert the time into a decimal to allow for DateTime addition later
+					dec = Convert.ToDouble (Convert.ToDecimal (TimeSpan.Parse (shiftTime).TotalHours));
 				}
 			}
+			//fix rostering anomalies..
+			if (word == "11")
+				word = "11:00am";
+			if (word == "3:30")
+				word = "3:30pm";
+			//create the shift vary in 24h time for DateTime
 			double shiftVary = dec + 12.0;
 			DateTime shift = day;
-			if (count < 4) {
-				//				DateTime shiftStart = day;
-				//				DateTime shiftEnd = day;
-
-				if (count == 1) {
-					DateTime shiftStart = findShiftStart (shift, word, dec, shiftVary);
-				}
-
-				if (count == 2) {
-					DateTime shiftEnd = findShiftEnd (shift, word, dec, shiftVary);
-				}
-
-				if (count == 3) {
-					word = findShiftType (word);
-					if (word.Length == 0)
-						count += 1;
-				}
+			if (count == 1) {
+				DateTime shiftStart = findShiftStart (shift, word, dec, shiftVary);
 			}
 
-			if (count > 3) {
-				if (count == 4) {
-					DateTime shiftTwoStart = findShiftStart (shift, word, dec, shiftVary);
-				}
-
-				if (count == 5) {
-					DateTime shiftTwoEnd = findShiftEnd (shift, word, dec, shiftVary);
-				}
-
-				if (count == 6) {
-					word = findShiftType (word);
-					if (word.Length == 0)
-						count += 1;
-				}
+			if (count == 2) {
+				DateTime shiftEnd = findShiftEnd (shift, word, dec, shiftVary);
 			}
-		}
 
-		public static void TimeSpanTest()
-		{
-			TimeSpan timespan = new TimeSpan ();
-			DateTime shiftStart = new DateTime ();
-			DateTime shiftEnd = new DateTime ();
-			shiftStart.AddHours (16.0);
-			shiftEnd.AddHours (20.0);
-			timespan = shiftEnd - shiftStart;
-			Console.WriteLine (timespan.Hours.ToString());
+			if (count == 3) {
+				word = findShiftType (word);
+			}
 		}
 
 		public static DateTime findShiftStart(DateTime day, string word, double dec, double shiftVary)
@@ -118,32 +104,29 @@ namespace jeremy_project
 			return shiftEnd;
 		}
 
-		public static string findShiftType(string inWord)
+		public static string findShiftType(string word)
 		{
-			string word = string.Empty;
-			if (Regex.IsMatch (word, @"[GTSF]")) {
-				switch (word) {
-				case "G":
-					word = "gym";
-					Console.WriteLine ("This is a {0} shift", word);
-					break;
-				case "T":
-					word = "training";
-					Console.WriteLine ("This is a {0} shift", word);
-					break;
-				case "S":
-					word = "slide";
-					Console.WriteLine ("This is a {0} shift", word);
-					break;
-				case "F":
-					word = "function";
-					Console.WriteLine ("This is a {0} shift", word);
-					break;
-				default:
-					word = "standard";
-					Console.WriteLine ("This is a {0} shift", word);
-					break;
-				}
+			switch (word) {
+			case "G":
+				word = "gym";
+				Console.WriteLine ("This is a {0} shift", word);
+				break;
+			case "T":
+				word = "training";
+				Console.WriteLine ("This is a {0} shift", word);
+				break;
+			case "S":
+				word = "slide";
+				Console.WriteLine ("This is a {0} shift", word);
+				break;
+			case "F":
+				word = "function";
+				Console.WriteLine ("This is a {0} shift", word);
+				break;
+			default:
+				word = "standard";
+				Console.WriteLine ("This is a {0} shift", word);
+				break;
 			}
 			return word;
 		}

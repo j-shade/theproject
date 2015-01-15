@@ -25,6 +25,8 @@ namespace jeremy_project
             {
                 // instantiate list of users
                 var users = new List<User>();
+				// instantiate list of shifts
+				var shiftList = new List<Shift>();
                 // populate list of users
                 users = UserBLL.GetUserObjects(folderPath);
                 // trawl trhough users
@@ -33,9 +35,10 @@ namespace jeremy_project
                     // if one matches happy days
 					if (user.EmployeeName == userName && scrPrt < 1)
                     {
-						//ShiftBLL.GetShiftObjects(userName, folderPath);
+						shiftList = ShiftBLL.GetShiftObjects(userName, folderPath);
+						ShiftSplitterBLL.SplitTheShifts(shiftList);
                         // print shifttimes, but first get shift objects based on username
-                        Print.PrintShiftTimes(ShiftBLL.GetShiftObjects(userName, folderPath)); 
+                        //Print.PrintShiftTimes(ShiftBLL.GetShiftObjects(userName, folderPath)); 
 						scrPrt =+ 1;
                     }                    
                 }

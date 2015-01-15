@@ -32,7 +32,6 @@ namespace jeremy_project
 				if ((name.Length > 5) && (name.Length < 20) && (name.Contains("0") != true))
                 {
                     // add users to list
-					Console.WriteLine(name);
                     users.Add(new User { EmployeeName = excelReader.GetString(0) });
                 }
             }

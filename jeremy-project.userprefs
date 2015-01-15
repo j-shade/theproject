@@ -1,6 +1,15 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="jeremy-project/ShiftSplitter/ShiftSplitterDAL.cs">
+    <Files>
+      <File FileName="jeremy-project/Program.cs" Line="9" Column="9" />
+      <File FileName="jeremy-project/Shift/ShiftDAL.cs" Line="8" Column="8" />
+      <File FileName="jeremy-project/Shift/ShiftObject.cs" Line="1" Column="1" />
+      <File FileName="jeremy-project/ShiftSplitter/ShiftSplitterBLL.cs" Line="36" Column="36" />
+      <File FileName="jeremy-project/ShiftSplitter/ShiftSplitterDAL.cs" Line="38" Column="38" />
+      <File FileName="jeremy-project/ShiftSplitter/ShiftTextSplitter.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
