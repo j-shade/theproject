@@ -12,11 +12,17 @@ namespace jeremy_project
 		{
 			double totalPay = 0.0;
 			double fortnightHours = 0.0;
+			double shiftLength = 0.0;
 			foreach (ShiftTime shift in shiftList) {
+				//Calculate the pay
 				totalPay += PayCalcDAL.GetPayPerShift (shift);
-				fortnightHours += (shift.ShiftEnd - shift.ShiftStart).TotalHours;
+				//calculate the total hours
+				shiftLength = (shift.ShiftEnd - shift.ShiftStart).TotalHours;
+				if ((shift.shiftLength >= 5) && (shift.shiftLength <= 7))
+					shift.shiftLength = shift.shiftLength - 0.5;
+				fortnightHours += shiftLength;
 			}
-			Console.WriteLine ("\n The total pay is ${0} for {1} hours.\n", totalPay, fortnightHours);
+			Console.WriteLine ("\n The total pay is ~ ${0} for {1} hours.\n", Math.Round(totalPay,0), fortnightHours);
 		}
 	}
 }

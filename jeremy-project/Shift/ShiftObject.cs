@@ -29,5 +29,6 @@ namespace jeremy_project
 		public string shiftType { get; set; }
         public DateTime ShiftStart { get; set; }
         public DateTime ShiftEnd { get; set; }
+		public double shiftLength{get; set;}
     }
 }
