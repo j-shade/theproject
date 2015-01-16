@@ -8,7 +8,7 @@ namespace jeremy_project
 {
     class Print
     {
-        public static void PrintShiftTimes(List<Shift> shifts)
+        public static void PrintShiftTimes(List<ShiftTime> shifts)
         {
             foreach (Shift shift in shifts)
             {

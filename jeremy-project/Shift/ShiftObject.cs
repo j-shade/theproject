@@ -10,6 +10,7 @@ namespace jeremy_project
     {
 		public string shiftText{ get; set; }
 		public DateTime shiftDate{ get; set; }
+		public double shiftPay{ get; set; }
 
 //        public string ShiftTotal { get; set; }
 //        public string[] Days = { "Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };

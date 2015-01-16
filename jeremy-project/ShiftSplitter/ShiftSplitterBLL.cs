@@ -8,7 +8,7 @@ namespace jeremy_project
 {
 	class ShiftSplitterBLL
 	{
-		public static void SplitTheShifts(List<Shift> shiftList)
+		public static void SplitTheShifts(List<ShiftTime> shiftList)
 		{
 			ShiftSplitterDAL.OneShiftAtATime(shiftList);
 		}

@@ -12,9 +12,9 @@ namespace jeremy_project
 {
     class ShiftDAL
     {
-        public static List<Shift> GetShiftObjectsForUser(string user, string filePath)
+        public static List<ShiftTime> GetShiftObjectsForUser(string user, string filePath)
         {
-            List<Shift> shifts = new List<Shift>();
+            List<ShiftTime> shifts = new List<ShiftTime>();
             
             // path to excel, read in all the users to a user object
             FileStream stream = File.Open(filePath, FileMode.Open, FileAccess.Read);
@@ -25,13 +25,13 @@ namespace jeremy_project
             {
 				if (excelReader.GetString (0) == "Senior Centre Assistants") {
 					//create new shifts for each week that contains the string above
-					Shift Day1 = new Shift ();
-					Shift Day2 = new Shift ();
-					Shift Day3 = new Shift ();
-					Shift Day4 = new Shift ();
-					Shift Day5 = new Shift ();
-					Shift Day6 = new Shift ();
-					Shift Day7 = new Shift ();
+					ShiftTime Day1 = new ShiftTime ();
+					ShiftTime Day2 = new ShiftTime ();
+					ShiftTime Day3 = new ShiftTime ();
+					ShiftTime Day4 = new ShiftTime ();
+					ShiftTime Day5 = new ShiftTime ();
+					ShiftTime Day6 = new ShiftTime ();
+					ShiftTime Day7 = new ShiftTime ();
 
 					//set the date for each day in the week
 					Day1.shiftDate = excelReader.GetDateTime (1);

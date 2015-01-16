@@ -62,6 +62,8 @@
     <Compile Include="ShiftSplitter\ShiftTextSplitter.cs" />
     <Compile Include="ShiftSplitter\ShiftSplitterBLL.cs" />
     <Compile Include="ShiftSplitter\ShiftSplitterDAL.cs" />
+    <Compile Include="PayCalc\PayCalcDAL.cs" />
+    <Compile Include="PayCalc\PayCalcBLL.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

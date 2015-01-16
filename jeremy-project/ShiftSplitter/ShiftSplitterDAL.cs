@@ -13,14 +13,14 @@ namespace jeremy_project
 	class ShiftSplitterDAL
 	{
 
-		public static void OneShiftAtATime(List<Shift> shiftList)
+		public static void OneShiftAtATime(List<ShiftTime> shiftList)
 		{
-			foreach (Shift shift in shiftList) {
-				GetShiftType (shift);
+			foreach (ShiftTime shift in shiftList) {
+				MakeDateTime(shift);
 			}
 		}
 
-		public static void GetShiftType(Shift shiftValue)
+		public static void MakeDateTime(ShiftTime shiftValue)
 		{
 			//check to see if there are more than one shift and split it by the pattern
 			if (shiftValue.shiftText != null) {
@@ -36,14 +36,14 @@ namespace jeremy_project
 					string[] words = shift.Split (separators, StringSplitOptions.RemoveEmptyEntries);
 					//for each shift it finds, break it down
 					foreach (var word in words) {
-						findShiftTimes (word, wordCount, shiftValue.shiftDate);
+						findShiftTimes (word, wordCount, shiftValue);
 						wordCount += 1;
 					}
 				}
 			}
 		}
 
-		public static void findShiftTimes(string word, int count, DateTime shiftValue)
+		public static void findShiftTimes(string word, int count, ShiftTime shiftValue)
 		{
 			double dec = 0.00;
 			string shiftTime = word;
@@ -78,15 +78,15 @@ namespace jeremy_project
 				shiftVary = 12.0;
 			//DateTime shift = day;
 			if (count == 1) {
-				DateTime shiftStart = findShiftStart (shiftValue, word, dec, shiftVary);
+				shiftValue.ShiftStart = findShiftStart (shiftValue.shiftDate, word, dec, shiftVary);
 			}
 
 			if (count == 2) {
-				DateTime shiftEnd = findShiftEnd (shiftValue, word, dec, shiftVary);
+				shiftValue.ShiftEnd = findShiftEnd (shiftValue.shiftDate, word, dec, shiftVary);
 			}
 
 			if (count == 3) {
-				word = findShiftType (word);
+				shiftValue.shiftType = findShiftType (word);
 			}
 		}
 
@@ -95,11 +95,11 @@ namespace jeremy_project
 			DateTime shiftStart = new DateTime ();
 			if (word.Contains ("pm")) {
 				shiftStart = day.AddHours (shiftVary);
-				Console.WriteLine ("The shift starts at {0}", shiftStart);
+//				Console.WriteLine ("The shift starts at {0}", shiftStart);
 			}
 			if (word.Contains ("am")) {
 				shiftStart = day.AddHours (dec);
-				Console.WriteLine ("The shift starts at {0}", shiftStart);
+//				Console.WriteLine ("The shift starts at {0}", shiftStart);
 			}
 			return shiftStart;
 		}
@@ -109,11 +109,11 @@ namespace jeremy_project
 			DateTime shiftEnd = new DateTime ();
 			if (word.Contains ("pm")) {
 				shiftEnd = day.AddHours (shiftVary);
-				Console.WriteLine ("The shift ends at {0}", shiftEnd);
+//				Console.WriteLine ("The shift ends at {0}", shiftEnd);
 			} 
 			if (word.Contains ("am")) {
 				shiftEnd = day.AddHours (dec);
-				Console.WriteLine ("The shift ends at {0}", shiftEnd);
+//				Console.WriteLine ("The shift ends at {0}", shiftEnd);
 			}
 			return shiftEnd;
 		}
@@ -123,23 +123,23 @@ namespace jeremy_project
 			switch (word) {
 			case "G":
 				word = "gym";
-				Console.WriteLine ("This is a {0} shift", word);
+//				Console.WriteLine ("This is a {0} shift", word);
 				break;
 			case "T":
 				word = "training";
-				Console.WriteLine ("This is a {0} shift", word);
+//				Console.WriteLine ("This is a {0} shift", word);
 				break;
 			case "S":
 				word = "slide";
-				Console.WriteLine ("This is a {0} shift", word);
+//				Console.WriteLine ("This is a {0} shift", word);
 				break;
 			case "F":
 				word = "function";
-				Console.WriteLine ("This is a {0} shift", word);
+//				Console.WriteLine ("This is a {0} shift", word);
 				break;
 			default:
 				word = "standard";
-				Console.WriteLine ("This is a {0} shift", word);
+//				Console.WriteLine ("This is a {0} shift", word);
 				break;
 			}
 			return word;
