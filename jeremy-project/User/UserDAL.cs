@@ -12,13 +12,12 @@ namespace jeremy_project
 {
     static class UserDAL
     {
-        public static List<User> GetAllUsers(string filePath)
+		public static void GetAllUsers(Roster roster)
         {
             User user = new User();
-            List<User> users = new List<User>();
 
             // path to excel, read in all the users to a user object
-            FileStream stream = File.Open(filePath, FileMode.Open, FileAccess.Read);
+			FileStream stream = File.Open(roster.filePath, FileMode.Open, FileAccess.Read);
 
             // read in file
             IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
@@ -32,15 +31,11 @@ namespace jeremy_project
 				if ((name.Length > 5) && (name.Length < 20) && (name.Contains("0") != true))
                 {
                     // add users to list
-                    users.Add(new User { EmployeeName = excelReader.GetString(0) });
+					roster.userList.Add(new User { EmployeeName = excelReader.GetString(0) });
                 }
             }
             // m management
-            excelReader.Close();
-
-            // return user objects
-            return users;
-
+			excelReader.Close ();
         }
     }
 }

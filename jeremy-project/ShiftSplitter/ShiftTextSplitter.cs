@@ -81,11 +81,11 @@ namespace jeremy_project
 			DateTime shiftStart = new DateTime ();
 			if (word.Contains ("pm")) {
 				shiftStart = day.AddHours (shiftVary);
-				Console.WriteLine ("The shift starts at {0}", shiftStart);
+//				Console.WriteLine ("The shift starts at {0}", shiftStart);
 			}
 			if (word.Contains ("am")) {
 				shiftStart = day.AddHours (dec);
-				Console.WriteLine ("The shift starts at {0}", shiftStart);
+//				Console.WriteLine ("The shift starts at {0}", shiftStart);
 			}
 			return shiftStart;
 		}
@@ -95,11 +95,11 @@ namespace jeremy_project
 			DateTime shiftEnd = new DateTime ();
 			if (word.Contains ("pm")) {
 				shiftEnd = day.AddHours (shiftVary);
-				Console.WriteLine ("The shift ends at {0}", shiftEnd);
+//				Console.WriteLine ("The shift ends at {0}", shiftEnd);
 			} 
 			if (word.Contains ("am")) {
 				shiftEnd = day.AddHours (dec);
-				Console.WriteLine ("The shift ends at {0}", shiftEnd);
+//				Console.WriteLine ("The shift ends at {0}", shiftEnd);
 			}
 			return shiftEnd;
 		}

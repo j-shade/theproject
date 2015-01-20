@@ -8,22 +8,19 @@ namespace jeremy_project
 {
     class Print
     {
-        public static void PrintShiftTimes(List<ShiftTime> shifts)
+		public static void PrintShiftTimes(Roster roster)
         {
-            foreach (Shift shift in shifts)
+			foreach (Shift day in roster.dayList)
             {
-				Console.WriteLine (shift.shiftDate.ToShortDateString() + " , " + shift.shiftText);
-                // print any info you need based off the object.
-//                Console.WriteLine(shift.Days[0] + " = " + shift.Day1);
-//                Console.WriteLine(shift.Days[1] + " = " + shift.Day2);
-//                Console.WriteLine(shift.Days[2] + " = " + shift.Day3);
-//                Console.WriteLine(shift.Days[3] + " = " + shift.Day4);
-//                Console.WriteLine(shift.Days[4] + " = " + shift.Day5);
-//                Console.WriteLine(shift.Days[5] + " = " + shift.Day6);
-//                Console.WriteLine(shift.Days[6] + " = " + shift.Day7);
-//                Console.WriteLine("Total Hours = " + shift.ShiftTotal);
-//                Console.WriteLine(String.Empty);
+				foreach (ShiftTime shift in day.listOfShifts) {
+					Console.WriteLine ("You will make ${0} for {1} ({2} hrs) on the {3}"
+						,Math.Round(shift.shiftPay,2)
+						,shift.singleShiftText
+						,shift.shiftLength
+						,shift.ShiftStart.ToShortDateString());
+				}
             }
+			Console.WriteLine ("\n    The estimate gross pay is ${0} for {1} hours.\n", Math.Round (roster.rosterPay, 0), roster.rosterHours);
         }
     }
 }

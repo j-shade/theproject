@@ -8,9 +8,9 @@ namespace jeremy_project
 {
     class UserBLL
     {
-        public static List<User> GetUserObjects(string FilePath)
+		public static void GetUserObjects(Roster roster)
         {
-            return UserDAL.GetAllUsers(FilePath);
+             UserDAL.GetAllUsers(roster);
         }
     }
 }

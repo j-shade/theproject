@@ -8,21 +8,16 @@ namespace jeremy_project
 {
 	class PayCalcBLL
 	{
-		public static void FindThePay(List<ShiftTime> shiftList)
+		public static void FindThePay(Roster roster)
 		{
-			double totalPay = 0.0;
-			double fortnightHours = 0.0;
-			double shiftLength = 0.0;
-			foreach (ShiftTime shift in shiftList) {
-				//Calculate the pay
-				totalPay += PayCalcDAL.GetPayPerShift (shift);
-				//calculate the total hours
-				shiftLength = (shift.ShiftEnd - shift.ShiftStart).TotalHours;
-				if ((shift.shiftLength >= 5) && (shift.shiftLength <= 7))
-					shift.shiftLength = shift.shiftLength - 0.5;
-				fortnightHours += shiftLength;
+			foreach (Shift shift in roster.dayList) {
+				foreach (ShiftTime workingShift in shift.listOfShifts) {
+					//Calculate the pay
+					roster.rosterPay += PayCalcDAL.GetPayPerShift (workingShift);
+					//calculate the total hours
+					roster.rosterHours += workingShift.shiftLength;
+				}
 			}
-			Console.WriteLine ("\n The total pay is ~ ${0} for {1} hours.\n", Math.Round(totalPay,0), fortnightHours);
 		}
 	}
 }

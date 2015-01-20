@@ -23,10 +23,6 @@ namespace jeremy_project
 			//define initial shift pay
 			shift.shiftPay = 0.0;
 
-//			Console.WriteLine (shift.ShiftStart);
-//			Console.WriteLine (shift.ShiftEnd);
-//			Console.WriteLine (shift.shiftType);
-
 			shift.shiftLength = (shift.ShiftEnd - shift.ShiftStart).TotalHours;
 			if ((shift.shiftLength >= 5) && (shift.shiftLength <= 7))
 				shift.shiftLength = shift.shiftLength - 0.5;
@@ -34,7 +30,7 @@ namespace jeremy_project
 			bool isPublic = FindPublicHoliday (shift);
 
 			if (shift.shiftLength != 0.0) {
-				switch (shift.shiftDate.DayOfWeek.ToString()) {
+				switch (shift.ShiftStart.ToShortDateString()) {
 				case "Saturday":
 					shift.shiftPay = (shift.shiftLength * basePay * satMulti);
 					break;
@@ -46,13 +42,9 @@ namespace jeremy_project
 					break;
 				}
 
+				//check if the day is a public holiday 
 				if (isPublic == true)
 					shift.shiftPay = (shift.shiftLength * basePay * pubMulti);
-				Console.WriteLine ("You will make ${0} for {1} ({2} hrs) on the {3}"
-					,Math.Round(shift.shiftPay,2)
-					,shift.shiftText
-					,shift.shiftLength
-					,shift.shiftDate.ToShortDateString());
 			}
 
 			return shift.shiftPay;
@@ -61,18 +53,18 @@ namespace jeremy_project
 		public static bool FindPublicHoliday(ShiftTime shift)
 		{
 			bool isPublic = false;
-			if ((shift.shiftDate.ToShortDateString ().Equals ("01/01/2015")) ||
-			    (shift.shiftDate.ToShortDateString ().Equals ("26/01/2015")) ||
-			    (shift.shiftDate.ToShortDateString ().Equals ("02/03/2015")) ||
-			    (shift.shiftDate.ToShortDateString ().Equals ("03/04/2015")) ||
-			    (shift.shiftDate.ToShortDateString ().Equals ("06/04/2015")) ||
-			    (shift.shiftDate.ToShortDateString ().Equals ("25/04/2015")) ||
-			    (shift.shiftDate.ToShortDateString ().Equals ("26/04/2015")) ||
-			    (shift.shiftDate.ToShortDateString ().Equals ("01/06/2015")) ||
-			    (shift.shiftDate.ToShortDateString ().Equals ("28/09/2015")) ||
-			    (shift.shiftDate.ToShortDateString ().Equals ("25/12/2015")) ||
-			    (shift.shiftDate.ToShortDateString ().Equals ("26/12/2015")) ||
-			    (shift.shiftDate.ToShortDateString ().Equals ("28/12/2015")))
+			if ((shift.ShiftStart.ToShortDateString ().Equals ("01/01/2015")) ||
+			    (shift.ShiftStart.ToShortDateString ().Equals ("26/01/2015")) ||
+			    (shift.ShiftStart.ToShortDateString ().Equals ("02/03/2015")) ||
+			    (shift.ShiftStart.ToShortDateString ().Equals ("03/04/2015")) ||
+			    (shift.ShiftStart.ToShortDateString ().Equals ("06/04/2015")) ||
+			    (shift.ShiftStart.ToShortDateString ().Equals ("25/04/2015")) ||
+			    (shift.ShiftStart.ToShortDateString ().Equals ("26/04/2015")) ||
+			    (shift.ShiftStart.ToShortDateString ().Equals ("01/06/2015")) ||
+			    (shift.ShiftStart.ToShortDateString ().Equals ("28/09/2015")) ||
+			    (shift.ShiftStart.ToShortDateString ().Equals ("25/12/2015")) ||
+			    (shift.ShiftStart.ToShortDateString ().Equals ("26/12/2015")) ||
+			    (shift.ShiftStart.ToShortDateString ().Equals ("28/12/2015")))
 				isPublic = true;
 			return isPublic;
 		}

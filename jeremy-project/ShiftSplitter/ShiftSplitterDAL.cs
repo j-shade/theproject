@@ -13,37 +13,52 @@ namespace jeremy_project
 	class ShiftSplitterDAL
 	{
 
-		public static void OneShiftAtATime(List<ShiftTime> shiftList)
+		public static void OneShiftAtATime(List<Shift> shiftList)
 		{
-			foreach (ShiftTime shift in shiftList) {
-				MakeDateTime(shift);
+			foreach (Shift shiftValue in shiftList) {
+				MakeDateTime(shiftValue);
 			}
 		}
 
-		public static void MakeDateTime(ShiftTime shiftValue)
+		public static void MakeDateTime(Shift shiftValue)
 		{
 			//check to see if there are more than one shift and split it by the pattern
 			if (shiftValue.shiftText != null) {
+
+				ShiftTime shiftOne = new ShiftTime ();
+				shiftValue.listOfShifts.Add (shiftOne);
+				ShiftTime shiftTwo = new ShiftTime ();
+
 				string pattern = "/";
 				string[] multiShifts = Regex.Split (shiftValue.shiftText, pattern);
+				if (multiShifts.Length > 1)
+					shiftValue.listOfShifts.Add (shiftTwo);
+
+
 				//begin the shift count
 				int shiftCount = 1;
+
 				foreach (string shift in multiShifts) {
 					int wordCount = 1;
-					//Console.WriteLine ("\n Shift {0} : \n", shiftCount);
-					shiftCount += 1;
 					string[] separators = { "-", "(", ")", " ", "Extra" };
 					string[] words = shift.Split (separators, StringSplitOptions.RemoveEmptyEntries);
+					//set the single shift text per shift
+					if (shiftCount == 1) {
+						shiftOne.singleShiftText = shift;
+					} if (shiftCount == 2) {
+						shiftTwo.singleShiftText = shift;
+					}
 					//for each shift it finds, break it down
 					foreach (var word in words) {
-						findShiftTimes (word, wordCount, shiftValue);
+						findShiftTimes (word, wordCount, shiftValue, shiftCount, shiftOne, shiftTwo);
 						wordCount += 1;
 					}
+					shiftCount += 1;
 				}
 			}
 		}
 
-		public static void findShiftTimes(string word, int count, ShiftTime shiftValue)
+		public static void findShiftTimes(string word, int count, Shift shiftValue, int shiftCount, ShiftTime shiftOne, ShiftTime shiftTwo)
 		{
 			double dec = 0.00;
 			string shiftTime = word;
@@ -76,17 +91,34 @@ namespace jeremy_project
 			double shiftVary = dec + 12.0;
 			if (dec == 12)
 				shiftVary = 12.0;
+
 			//DateTime shift = day;
-			if (count == 1) {
-				shiftValue.ShiftStart = findShiftStart (shiftValue.shiftDate, word, dec, shiftVary);
+			if (shiftCount == 1) {
+				if (count == 1) {
+					shiftOne.ShiftStart = findShiftStart (shiftValue.shiftDate, word, dec, shiftVary);
+				}
+
+				if (count == 2) {
+					shiftOne.ShiftEnd = findShiftEnd (shiftValue.shiftDate, word, dec, shiftVary);
+				}
+
+				if (count == 3) {
+					shiftOne.shiftType = findShiftType (word);
+				}
 			}
 
-			if (count == 2) {
-				shiftValue.ShiftEnd = findShiftEnd (shiftValue.shiftDate, word, dec, shiftVary);
-			}
+			if (shiftCount == 2) {
+				if (count == 1) {
+					shiftTwo.ShiftStart = findShiftStart (shiftValue.shiftDate, word, dec, shiftVary);
+				}
 
-			if (count == 3) {
-				shiftValue.shiftType = findShiftType (word);
+				if (count == 2) {
+					shiftTwo.ShiftEnd = findShiftEnd (shiftValue.shiftDate, word, dec, shiftVary);
+				}
+
+				if (count == 3) {
+					shiftTwo.shiftType = findShiftType (word);
+				}
 			}
 		}
 
@@ -95,11 +127,9 @@ namespace jeremy_project
 			DateTime shiftStart = new DateTime ();
 			if (word.Contains ("pm")) {
 				shiftStart = day.AddHours (shiftVary);
-//				Console.WriteLine ("The shift starts at {0}", shiftStart);
 			}
 			if (word.Contains ("am")) {
 				shiftStart = day.AddHours (dec);
-//				Console.WriteLine ("The shift starts at {0}", shiftStart);
 			}
 			return shiftStart;
 		}

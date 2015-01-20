@@ -12,12 +12,11 @@ namespace jeremy_project
 {
     class ShiftDAL
     {
-        public static List<ShiftTime> GetShiftObjectsForUser(string user, string filePath)
+		public static void GetShiftObjectsForUser(string user, Roster roster)
         {
-            List<ShiftTime> shifts = new List<ShiftTime>();
             
             // path to excel, read in all the users to a user object
-            FileStream stream = File.Open(filePath, FileMode.Open, FileAccess.Read);
+			FileStream stream = File.Open(roster.filePath, FileMode.Open, FileAccess.Read);
 
             // read in file
             IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
@@ -25,13 +24,13 @@ namespace jeremy_project
             {
 				if (excelReader.GetString (0) == "Senior Centre Assistants") {
 					//create new shifts for each week that contains the string above
-					ShiftTime Day1 = new ShiftTime ();
-					ShiftTime Day2 = new ShiftTime ();
-					ShiftTime Day3 = new ShiftTime ();
-					ShiftTime Day4 = new ShiftTime ();
-					ShiftTime Day5 = new ShiftTime ();
-					ShiftTime Day6 = new ShiftTime ();
-					ShiftTime Day7 = new ShiftTime ();
+					Shift Day1 = new Shift ();
+					Shift Day2 = new Shift ();
+					Shift Day3 = new Shift ();
+					Shift Day4 = new Shift ();
+					Shift Day5 = new Shift ();
+					Shift Day6 = new Shift ();
+					Shift Day7 = new Shift ();
 
 					//set the date for each day in the week
 					Day1.shiftDate = excelReader.GetDateTime (1);
@@ -43,13 +42,13 @@ namespace jeremy_project
 					Day7.shiftDate = excelReader.GetDateTime (7);
 
 					//add the 7 days of the week to the list of shifts for this roster
-					shifts.Add(Day1);
-					shifts.Add(Day2);
-					shifts.Add(Day3);
-					shifts.Add(Day4);
-					shifts.Add(Day5);
-					shifts.Add(Day6);
-					shifts.Add(Day7);
+					roster.dayList.Add(Day1);
+					roster.dayList.Add(Day2);
+					roster.dayList.Add(Day3);
+					roster.dayList.Add(Day4);
+					roster.dayList.Add(Day5);
+					roster.dayList.Add(Day6);
+					roster.dayList.Add(Day7);
 
 					bool isFound = false;
 					while (isFound == false)
@@ -71,9 +70,6 @@ namespace jeremy_project
 				}
             }
             excelReader.Close();
-
-            // return shift object based on username
-            return shifts;
         }
     }
 }

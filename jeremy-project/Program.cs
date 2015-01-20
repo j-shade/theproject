@@ -14,7 +14,6 @@ namespace jeremy_project
             // vars
             string userName = String.Empty;
 			int scrPrt = 0;
-			double totalPay = 0.0;
 			bool doesExist = false;
 
             // constants
@@ -23,30 +22,29 @@ namespace jeremy_project
             // could do this better, like you have is fine
 			userName = NameBLL.GetUserName ();
 
-
-
             try
             {
-                // instantiate list of users
-                var users = new List<User>();
-				// instantiate list of shifts
-				var shiftList = new List<ShiftTime>();
+				//instantiate new roster object
+				var roster = new Roster();
+				//set the file path for roster object
+				roster.filePath = folderPath;
                 // populate list of users
-                users = UserBLL.GetUserObjects(folderPath);
+				UserBLL.GetUserObjects(roster);
                 // trawl trhough users
-                foreach (User user in users)
+				foreach (User user in roster.userList)
                 {
                     // if one matches happy days
 					if (user.EmployeeName == userName && scrPrt < 1)
                     {
 						//make the shift list from the userName and folder path
-						shiftList = ShiftBLL.GetShiftObjects(userName, folderPath);
-						// print shift datetimes, but first get shift objects based on username
-						ShiftSplitterBLL.SplitTheShifts(shiftList);
+						ShiftBLL.GetShiftObjects(userName, roster);
+						// for each shift in the roster, separate and make new shift times
+						ShiftSplitterBLL.SplitTheShifts(roster.dayList);
 						// find the total pay for each shift
-						PayCalcBLL.FindThePay(shiftList);
-                        // print shifttimes, but first get shift objects based on username
-//                        Print.PrintShiftTimes(ShiftBLL.GetShiftObjects(userName, folderPath)); 
+						PayCalcBLL.FindThePay(roster);
+                      	//Print the shift, date and estimated income
+						Print.PrintShiftTimes(roster);
+
 						scrPrt =+ 1;
 						doesExist = true;
                     }                    

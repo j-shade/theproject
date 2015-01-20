@@ -8,9 +8,9 @@ namespace jeremy_project
 {
     class ShiftBLL
     {
-        public static List<ShiftTime> GetShiftObjects(string user, string filePath)
+		public static void GetShiftObjects(string user, Roster roster)
         {
-            return ShiftDAL.GetShiftObjectsForUser(user, filePath);
+            ShiftDAL.GetShiftObjectsForUser(user, roster);
         }
     }
 }
