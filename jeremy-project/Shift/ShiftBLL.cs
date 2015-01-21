@@ -6,11 +6,22 @@ using System.Threading.Tasks;
 
 namespace jeremy_project
 {
+	interface IShiftDAL {
+		void GetShiftObjectsForUser (string user, Roster roster);
+	}
+
     class ShiftBLL
     {
-		public static void GetShiftObjects(string user, Roster roster)
+		//create the DAL
+		private readonly IShiftDAL _dal;
+
+		public ShiftBLL(IShiftDAL dal) {
+			_dal = dal;
+		}
+
+		public void GetShiftObjects(string user, Roster roster)
         {
-            ShiftDAL.GetShiftObjectsForUser(user, roster);
+			_dal.GetShiftObjectsForUser (user, roster);
         }
     }
 }

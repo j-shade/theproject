@@ -13,14 +13,15 @@ namespace jeremy_project
 			foreach (Shift day in roster.dayList)
             {
 				foreach (ShiftTime shift in day.listOfShifts) {
-					Console.WriteLine ("You will make ${0} for {1} ({2} hrs) on the {3}"
+					Console.WriteLine ("You will make ${0} for {1} ({2} hrs) on {3}, {4}"
 						,Math.Round(shift.shiftPay,2)
 						,shift.singleShiftText
 						,shift.shiftLength
+						,shift.ShiftStart.DayOfWeek.ToString()
 						,shift.ShiftStart.ToShortDateString());
 				}
             }
-			Console.WriteLine ("\n    The estimate gross pay is ${0} for {1} hours.\n", Math.Round (roster.rosterPay, 0), roster.rosterHours);
+			Console.WriteLine ("\n    The estimate gross pay is ${0} for {1} hours.\n", Math.Round (roster.rosterPay, 1), roster.rosterHours);
         }
     }
 }

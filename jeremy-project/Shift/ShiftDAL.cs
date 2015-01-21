@@ -10,11 +10,10 @@ using System.Data;
 
 namespace jeremy_project
 {
-    class ShiftDAL
+    class ShiftDAL : IShiftDAL
     {
-		public static void GetShiftObjectsForUser(string user, Roster roster)
-        {
-            
+		public void GetShiftObjectsForUser(string user, Roster roster)
+        {    
             // path to excel, read in all the users to a user object
 			FileStream stream = File.Open(roster.filePath, FileMode.Open, FileAccess.Read);
 

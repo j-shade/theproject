@@ -10,50 +10,44 @@ using System.Data;
 
 namespace jeremy_project
 {
-	class ShiftSplitterDAL
+	class ShiftSplitter
 	{
-
-		public static void OneShiftAtATime(List<Shift> shiftList)
+		public static void SplitTheShifts(List<Shift> shiftList)
 		{
 			foreach (Shift shiftValue in shiftList) {
-				MakeDateTime(shiftValue);
-			}
-		}
+				//check to see if there are more than one shift and split it by the pattern
+				if (shiftValue.shiftText != null) {
 
-		public static void MakeDateTime(Shift shiftValue)
-		{
-			//check to see if there are more than one shift and split it by the pattern
-			if (shiftValue.shiftText != null) {
+					ShiftTime shiftOne = new ShiftTime ();
+					shiftValue.listOfShifts.Add (shiftOne);
+					ShiftTime shiftTwo = new ShiftTime ();
 
-				ShiftTime shiftOne = new ShiftTime ();
-				shiftValue.listOfShifts.Add (shiftOne);
-				ShiftTime shiftTwo = new ShiftTime ();
-
-				string pattern = "/";
-				string[] multiShifts = Regex.Split (shiftValue.shiftText, pattern);
-				if (multiShifts.Length > 1)
-					shiftValue.listOfShifts.Add (shiftTwo);
+					string pattern = "/";
+					string[] multiShifts = Regex.Split (shiftValue.shiftText, pattern);
+					if (multiShifts.Length > 1)
+						shiftValue.listOfShifts.Add (shiftTwo);
 
 
-				//begin the shift count
-				int shiftCount = 1;
+					//begin the shift count
+					int shiftCount = 1;
 
-				foreach (string shift in multiShifts) {
-					int wordCount = 1;
-					string[] separators = { "-", "(", ")", " ", "Extra" };
-					string[] words = shift.Split (separators, StringSplitOptions.RemoveEmptyEntries);
-					//set the single shift text per shift
-					if (shiftCount == 1) {
-						shiftOne.singleShiftText = shift;
-					} if (shiftCount == 2) {
-						shiftTwo.singleShiftText = shift;
+					foreach (string shift in multiShifts) {
+						int wordCount = 1;
+						string[] separators = { "-", "(", ")", " ", "Extra" };
+						string[] words = shift.Split (separators, StringSplitOptions.RemoveEmptyEntries);
+						//set the single shift text per shift
+						if (shiftCount == 1) {
+							shiftOne.singleShiftText = shift;
+						} if (shiftCount == 2) {
+							shiftTwo.singleShiftText = shift;
+						}
+						//for each shift it finds, break it down
+						foreach (var word in words) {
+							findShiftTimes (word, wordCount, shiftValue, shiftCount, shiftOne, shiftTwo);
+							wordCount += 1;
+						}
+						shiftCount += 1;
 					}
-					//for each shift it finds, break it down
-					foreach (var word in words) {
-						findShiftTimes (word, wordCount, shiftValue, shiftCount, shiftOne, shiftTwo);
-						wordCount += 1;
-					}
-					shiftCount += 1;
 				}
 			}
 		}
@@ -139,11 +133,11 @@ namespace jeremy_project
 			DateTime shiftEnd = new DateTime ();
 			if (word.Contains ("pm")) {
 				shiftEnd = day.AddHours (shiftVary);
-//				Console.WriteLine ("The shift ends at {0}", shiftEnd);
+				//				Console.WriteLine ("The shift ends at {0}", shiftEnd);
 			} 
 			if (word.Contains ("am")) {
 				shiftEnd = day.AddHours (dec);
-//				Console.WriteLine ("The shift ends at {0}", shiftEnd);
+				//				Console.WriteLine ("The shift ends at {0}", shiftEnd);
 			}
 			return shiftEnd;
 		}
@@ -153,27 +147,26 @@ namespace jeremy_project
 			switch (word) {
 			case "G":
 				word = "gym";
-//				Console.WriteLine ("This is a {0} shift", word);
+				//				Console.WriteLine ("This is a {0} shift", word);
 				break;
 			case "T":
 				word = "training";
-//				Console.WriteLine ("This is a {0} shift", word);
+				//				Console.WriteLine ("This is a {0} shift", word);
 				break;
 			case "S":
 				word = "slide";
-//				Console.WriteLine ("This is a {0} shift", word);
+				//				Console.WriteLine ("This is a {0} shift", word);
 				break;
 			case "F":
 				word = "function";
-//				Console.WriteLine ("This is a {0} shift", word);
+				//				Console.WriteLine ("This is a {0} shift", word);
 				break;
 			default:
 				word = "standard";
-//				Console.WriteLine ("This is a {0} shift", word);
+				//				Console.WriteLine ("This is a {0} shift", word);
 				break;
 			}
 			return word;
 		}
 	}
 }
-

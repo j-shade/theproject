@@ -13,7 +13,6 @@ namespace jeremy_project
         {
             // vars
             string userName = String.Empty;
-			int scrPrt = 0;
 			bool doesExist = false;
 
             // constants
@@ -30,22 +29,23 @@ namespace jeremy_project
 				roster.filePath = folderPath;
                 // populate list of users
 				UserBLL.GetUserObjects(roster);
-                // trawl trhough users
+				//create the shift DAL interface
+				var shiftFind = new ShiftBLL(new ShiftDAL());
+                // trawl through users
 				foreach (User user in roster.userList)
                 {
                     // if one matches happy days
-					if (user.EmployeeName == userName && scrPrt < 1)
+					if (user.EmployeeName == userName && doesExist == false)
                     {
 						//make the shift list from the userName and folder path
-						ShiftBLL.GetShiftObjects(userName, roster);
+						shiftFind.GetShiftObjects(userName, roster);
 						// for each shift in the roster, separate and make new shift times
-						ShiftSplitterBLL.SplitTheShifts(roster.dayList);
+						ShiftSplitter.SplitTheShifts(roster.dayList);
 						// find the total pay for each shift
-						PayCalcBLL.FindThePay(roster);
+						PayCalc.FindThePay(roster);
                       	//Print the shift, date and estimated income
 						Print.PrintShiftTimes(roster);
-
-						scrPrt =+ 1;
+					
 						doesExist = true;
                     }                    
                 }
