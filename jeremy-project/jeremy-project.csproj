@@ -62,6 +62,10 @@
     <Compile Include="Roster\RosterObject.cs" />
     <Compile Include="ShiftSplitter\ShiftSplitter.cs" />
     <Compile Include="PayCalc\PayCalc.cs" />
+    <Compile Include="User\UserRiteqDAL.cs" />
+    <Compile Include="User\UserRiteqBLL.cs" />
+    <Compile Include="Shift\ShiftRiteqDAL.cs" />
+    <Compile Include="ShiftSplitter\ShiftSplitterRiteq.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

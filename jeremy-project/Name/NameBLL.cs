@@ -6,11 +6,22 @@ using System.Threading.Tasks;
 
 namespace jeremy_project
 {
+	interface INameDAL {
+		string WhatIsTheName ();
+	}
+
 	class NameBLL
 	{
-		public static string GetUserName()
+		//create the DAL
+		private readonly INameDAL _dal;
+
+		public NameBLL(INameDAL dal) {
+			_dal = dal;
+		}
+
+		public string GetUserName()
 		{
-			return NameDAL.WhatIsTheName();
+			return _dal.WhatIsTheName();
 		}
 	}
 }

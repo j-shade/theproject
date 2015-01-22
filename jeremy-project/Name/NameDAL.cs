@@ -10,9 +10,9 @@ using System.Data;
 
 namespace jeremy_project
 {
-	class NameDAL
+	class NameDAL : INameDAL
 	{
-		public static string WhatIsTheName()
+		public string WhatIsTheName()
 		{
 			bool isValid = false;
 			string userName = string.Empty;

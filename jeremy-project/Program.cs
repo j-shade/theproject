@@ -16,10 +16,13 @@ namespace jeremy_project
 			bool doesExist = false;
 
             // constants
-            const string folderPath = "/Users/jeremy/jeremy-project/jeremy-project/sheet2.xlsx";  
+            const string folderPath = "/Users/jeremy/jeremy-project/jeremy-project/sheetRiteq.xls"; 
+
+			//create name DAL interface
+			var getName = new NameBLL (new NameDAL ());
 
             // could do this better, like you have is fine
-			userName = NameBLL.GetUserName ();
+			userName = getName.GetUserName ();
 
             try
             {
@@ -28,19 +31,23 @@ namespace jeremy_project
 				//set the file path for roster object
 				roster.filePath = folderPath;
                 // populate list of users
-				UserBLL.GetUserObjects(roster);
+//				UserBLL.GetUserObjects(roster);
+				// populate list of users for new riteq roster
+				UserRiteqBLL.GetUserObjects(roster);
 				//create the shift DAL interface
-				var shiftFind = new ShiftBLL(new ShiftDAL());
+				var shiftFind = new ShiftBLL(new ShiftRiteqDAL());
                 // trawl through users
 				foreach (User user in roster.userList)
                 {
+					//ignore name case to find variations
+					bool contains = user.EmployeeName.IndexOf(userName, StringComparison.OrdinalIgnoreCase) >= 0;
                     // if one matches happy days
-					if (user.EmployeeName == userName && doesExist == false)
+					if (contains == true && doesExist == false)
                     {
 						//make the shift list from the userName and folder path
 						shiftFind.GetShiftObjects(userName, roster);
 						// for each shift in the roster, separate and make new shift times
-						ShiftSplitter.SplitTheShifts(roster.dayList);
+						ShiftSplitterRiteq.SplitTheShifts(roster.dayList);
 						// find the total pay for each shift
 						PayCalc.FindThePay(roster);
                       	//Print the shift, date and estimated income
