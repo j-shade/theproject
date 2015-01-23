@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace jeremy_project
 {
-    public class Shift
+    public class Day
     {
-		public string shiftText{ get; set; }
-		public DateTime shiftDate{ get; set; }
+		public string dayText{ get; set; }
+		public DateTime dayDate{ get; set; }
 		private readonly List<ShiftTime> _listOfShifts = new List<ShiftTime>();
 		public List<ShiftTime> listOfShifts { get { return _listOfShifts; }}
 

@@ -10,6 +10,8 @@ namespace jeremy_project
 {    
     public class User
     {        
-        public string EmployeeName { get; set; }        
+        public string EmployeeName { get; set; }
+		public int EmployeeLevel{get; set;}
+		public int EmployeeAge{ get; set; }
     }
 }

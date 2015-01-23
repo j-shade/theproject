@@ -12,20 +12,20 @@ namespace jeremy_project
 {
 	class ShiftSplitter
 	{
-		public static void SplitTheShifts(List<Shift> shiftList)
+		public static void SplitTheShifts(List<Day> dayList)
 		{
-			foreach (Shift shiftValue in shiftList) {
+			foreach (Day day in dayList) {
 				//check to see if there are more than one shift and split it by the pattern
-				if (shiftValue.shiftText != null) {
+				if (day.dayText != null) {
 
 					ShiftTime shiftOne = new ShiftTime ();
-					shiftValue.listOfShifts.Add (shiftOne);
+					day.listOfShifts.Add (shiftOne);
 					ShiftTime shiftTwo = new ShiftTime ();
 
 					string pattern = "/";
-					string[] multiShifts = Regex.Split (shiftValue.shiftText, pattern);
+					string[] multiShifts = Regex.Split (day.dayText, pattern);
 					if (multiShifts.Length > 1)
-						shiftValue.listOfShifts.Add (shiftTwo);
+						day.listOfShifts.Add (shiftTwo);
 
 
 					//begin the shift count
@@ -43,7 +43,7 @@ namespace jeremy_project
 						}
 						//for each shift it finds, break it down
 						foreach (var word in words) {
-							findShiftTimes (word, wordCount, shiftValue, shiftCount, shiftOne, shiftTwo);
+							findShiftTimes (word, wordCount, day, shiftCount, shiftOne, shiftTwo);
 							wordCount += 1;
 						}
 						shiftCount += 1;
@@ -52,7 +52,7 @@ namespace jeremy_project
 			}
 		}
 
-		public static void findShiftTimes(string word, int count, Shift shiftValue, int shiftCount, ShiftTime shiftOne, ShiftTime shiftTwo)
+		public static void findShiftTimes(string word, int count, Day day, int shiftCount, ShiftTime shiftOne, ShiftTime shiftTwo)
 		{
 			double dec = 0.00;
 			string shiftTime = word;
@@ -89,11 +89,11 @@ namespace jeremy_project
 			//DateTime shift = day;
 			if (shiftCount == 1) {
 				if (count == 1) {
-					shiftOne.ShiftStart = findShiftStart (shiftValue.shiftDate, word, dec, shiftVary);
+					shiftOne.ShiftStart = findShiftStart (day.dayDate, word, dec, shiftVary);
 				}
 
 				if (count == 2) {
-					shiftOne.ShiftEnd = findShiftEnd (shiftValue.shiftDate, word, dec, shiftVary);
+					shiftOne.ShiftEnd = findShiftEnd (day.dayDate, word, dec, shiftVary);
 				}
 
 				if (count == 3) {
@@ -103,11 +103,11 @@ namespace jeremy_project
 
 			if (shiftCount == 2) {
 				if (count == 1) {
-					shiftTwo.ShiftStart = findShiftStart (shiftValue.shiftDate, word, dec, shiftVary);
+					shiftTwo.ShiftStart = findShiftStart (day.dayDate, word, dec, shiftVary);
 				}
 
 				if (count == 2) {
-					shiftTwo.ShiftEnd = findShiftEnd (shiftValue.shiftDate, word, dec, shiftVary);
+					shiftTwo.ShiftEnd = findShiftEnd (day.dayDate, word, dec, shiftVary);
 				}
 
 				if (count == 3) {

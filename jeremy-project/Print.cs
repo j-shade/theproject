@@ -10,7 +10,7 @@ namespace jeremy_project
     {
 		public static void PrintShiftTimes(Roster roster)
         {
-			foreach (Shift day in roster.dayList)
+			foreach (Day day in roster.dayList)
             {
 				foreach (ShiftTime shift in day.listOfShifts) {
 					Console.WriteLine ("You will make ${0} for {1} ({2} hrs) on {3}, {4}"

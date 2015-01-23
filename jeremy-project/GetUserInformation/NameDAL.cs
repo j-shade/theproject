@@ -10,7 +10,7 @@ using System.Data;
 
 namespace jeremy_project
 {
-	class NameDAL : INameDAL
+	class NameDAL
 	{
 		public string WhatIsTheName()
 		{

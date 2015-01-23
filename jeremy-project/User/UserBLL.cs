@@ -6,11 +6,22 @@ using System.Threading.Tasks;
 
 namespace jeremy_project
 {
+	interface IUserDAL {
+		void GetAllUsers (Roster roster);
+	}
+
     class UserBLL
     {
-		public static void GetUserObjects(Roster roster)
+		//create the DAL
+		private readonly IUserDAL _dal;
+
+		public UserBLL(IUserDAL dal) {
+			_dal = dal;
+		}
+
+		public void GetUserObjects(Roster roster)
         {
-             UserDAL.GetAllUsers(roster);
+             _dal.GetAllUsers(roster);
         }
     }
 }

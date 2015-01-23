@@ -10,9 +10,9 @@ using System.Data;
 
 namespace jeremy_project
 {
-    static class UserDAL
+    class UserDAL : IUserDAL
     {
-		public static void GetAllUsers(Roster roster)
+		public void GetAllUsers(Roster roster)
         {
             User user = new User();
 

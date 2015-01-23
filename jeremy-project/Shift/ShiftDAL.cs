@@ -23,22 +23,22 @@ namespace jeremy_project
             {
 				if (excelReader.GetString (0) == "Senior Centre Assistants") {
 					//create new shifts for each week that contains the string above
-					Shift Day1 = new Shift ();
-					Shift Day2 = new Shift ();
-					Shift Day3 = new Shift ();
-					Shift Day4 = new Shift ();
-					Shift Day5 = new Shift ();
-					Shift Day6 = new Shift ();
-					Shift Day7 = new Shift ();
+					Day Day1 = new Day ();
+					Day Day2 = new Day ();
+					Day Day3 = new Day ();
+					Day Day4 = new Day ();
+					Day Day5 = new Day ();
+					Day Day6 = new Day ();
+					Day Day7 = new Day ();
 
 					//set the date for each day in the week
-					Day1.shiftDate = excelReader.GetDateTime (1);
-					Day2.shiftDate = excelReader.GetDateTime (2);
-					Day3.shiftDate = excelReader.GetDateTime (3);
-					Day4.shiftDate = excelReader.GetDateTime (4);
-					Day5.shiftDate = excelReader.GetDateTime (5);
-					Day6.shiftDate = excelReader.GetDateTime (6);
-					Day7.shiftDate = excelReader.GetDateTime (7);
+					Day1.dayDate = excelReader.GetDateTime (1);
+					Day2.dayDate = excelReader.GetDateTime (2);
+					Day3.dayDate = excelReader.GetDateTime (3);
+					Day4.dayDate = excelReader.GetDateTime (4);
+					Day5.dayDate = excelReader.GetDateTime (5);
+					Day6.dayDate = excelReader.GetDateTime (6);
+					Day7.dayDate = excelReader.GetDateTime (7);
 
 					//add the 7 days of the week to the list of shifts for this roster
 					roster.dayList.Add(Day1);
@@ -53,16 +53,18 @@ namespace jeremy_project
 					while (isFound == false)
 					{
 						excelReader.Read ();
-						if (excelReader.GetString(0) == user)
+						//see if names match while ignoring text case
+						bool isUser = user.IndexOf (excelReader.GetString (0), StringComparison.OrdinalIgnoreCase) >= 0;
+						if (isUser == true)
 						{
 							//if a shift is found, set the shift text to the cell value
-							Day1.shiftText = excelReader.GetString(1);
-							Day2.shiftText = excelReader.GetString(2);
-							Day3.shiftText = excelReader.GetString(3);
-							Day4.shiftText = excelReader.GetString(4);
-							Day5.shiftText = excelReader.GetString(5);
-							Day6.shiftText = excelReader.GetString(6);
-							Day7.shiftText = excelReader.GetString(7);
+							Day1.dayText = excelReader.GetString(1);
+							Day2.dayText = excelReader.GetString(2);
+							Day3.dayText = excelReader.GetString(3);
+							Day4.dayText = excelReader.GetString(4);
+							Day5.dayText = excelReader.GetString(5);
+							Day6.dayText = excelReader.GetString(6);
+							Day7.dayText = excelReader.GetString(7);
 							isFound = true;
 						}
 					}

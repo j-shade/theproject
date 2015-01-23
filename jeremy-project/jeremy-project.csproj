@@ -53,19 +53,18 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shift\ShiftBLL.cs" />
     <Compile Include="Shift\ShiftDAL.cs" />
+    <Compile Include="Shift\ShiftRiteqDAL.cs" />
     <Compile Include="Shift\ShiftObject.cs" />
     <Compile Include="User\UserBLL.cs" />
     <Compile Include="User\UserDAL.cs" />
     <Compile Include="User\UserObject.cs" />
-    <Compile Include="Name\NameBLL.cs" />
-    <Compile Include="Name\NameDAL.cs" />
     <Compile Include="Roster\RosterObject.cs" />
     <Compile Include="ShiftSplitter\ShiftSplitter.cs" />
     <Compile Include="PayCalc\PayCalc.cs" />
     <Compile Include="User\UserRiteqDAL.cs" />
-    <Compile Include="User\UserRiteqBLL.cs" />
-    <Compile Include="Shift\ShiftRiteqDAL.cs" />
     <Compile Include="ShiftSplitter\ShiftSplitterRiteq.cs" />
+    <Compile Include="GetUserInformation\GetUserInformation.cs" />
+    <Compile Include="GetUserInformation\GetUserName.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
